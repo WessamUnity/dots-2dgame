@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6697253428521744184, guid: 81eb7dbf08c8a6543ac55a35c8dc0eeb, type: 3}
   Count: 20
+  MinSpeed: 5
+  MaxSpeed: 10
 --- !u!114 &5749096559521748585
 MonoBehaviour:
   m_ObjectHideFlags: 0

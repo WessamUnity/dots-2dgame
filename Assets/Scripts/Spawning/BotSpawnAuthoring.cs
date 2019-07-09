@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unity.Entities;
+using Unity.Mathematics;
 using UnityEngine;
 
 [RequiresEntityConversion]
@@ -7,6 +8,8 @@ public class BotSpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDec
 {
     public GameObject Prefab;
     public int Count;
+    public float MinSpeed;
+    public float MaxSpeed;
 
     // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
     public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
@@ -21,7 +24,9 @@ public class BotSpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDec
             // The referenced prefab will be converted due to DeclareReferencedPrefabs.
             // So here we simply map the game object to an entity reference to that prefab.
             Prefab = conversionSystem.GetPrimaryEntity(Prefab),
-            Count = Count
+            Count = Count,
+            MinSpeed = MinSpeed,
+            MaxSpeed = MaxSpeed
         };
         dstManager.AddComponentData(entity, spawnerData);
     }
