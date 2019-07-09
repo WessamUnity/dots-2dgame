@@ -20,7 +20,11 @@ public class BotSpawnSystem : ComponentSystem
     {
         var spawnerFromEntities = m_SpawnerQuery.ToComponentDataArray<BotSpawn>(Allocator.TempJob);
         var entities = m_SpawnerQuery.ToEntityArray(Allocator.TempJob);
-        Spawn(entities[0], spawnerFromEntities[0]);
+
+		if (entities.Length > 0)
+		{
+			Spawn(entities[0], spawnerFromEntities[0]);
+		}
 
         entities.Dispose();
         spawnerFromEntities.Dispose();
