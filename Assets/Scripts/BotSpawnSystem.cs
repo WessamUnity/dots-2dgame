@@ -37,7 +37,6 @@ public class BotSpawnSystem : ComponentSystem
         Random rand = new Random((uint)System.DateTime.Now.ToBinary());
         for (var i = 0; i < botSpawnFromEntity.Count; ++i)
         {
-            
             var position = new float3(rand.NextFloat(), rand.NextFloat(), rand.NextFloat());
             // Create our new Bot entity
             var instance = EntityManager.Instantiate(botSpawnFromEntity.Prefab);
