@@ -2,6 +2,7 @@
 using Unity.Entities;
 using UnityEngine;
 
+[RequiresEntityConversion]
 public class BotSpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
 {
     public GameObject Prefab;

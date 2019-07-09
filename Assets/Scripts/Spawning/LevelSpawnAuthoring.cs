@@ -3,9 +3,10 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
+[RequiresEntityConversion]
 public class LevelSpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDeclareReferencedPrefabs
 {
-    public GameObject Prefab;
+	public GameObject Prefab;
 	public float2 Size;
 
     // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
