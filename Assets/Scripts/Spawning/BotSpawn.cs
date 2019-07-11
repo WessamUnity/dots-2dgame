@@ -6,4 +6,5 @@ public struct BotSpawn : IComponentData
     public int Count;
     public float MinSpeed;
     public float MaxSpeed;
+	public float CollisionSize;
 }

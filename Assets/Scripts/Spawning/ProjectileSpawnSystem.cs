@@ -27,11 +27,14 @@ public class ProjectileSpawnSystem : ComponentSystem
 			{
 				var instance = EntityManager.Instantiate(spawner.Prefab);
 				EntityManager.AddComponentData(instance, new ProjectileSpeed { MetersPerSecond = spawner.Speed });
+				EntityManager.AddComponentData(instance, new CollisionSize { Value = spawner.CollisionSize });
 				EntityManager.AddComponent(instance, typeof(ProjectileInPoolTag));
+				EntityManager.AddComponent(instance, typeof(ProjectileTag));
 			}
 
 			EntityManager.DestroyEntity(entities[0]);
-		}
+			EntityManager.DestroyEntity(spawner.Prefab);
+        }
 
 		spawners.Dispose();
 		entities.Dispose();

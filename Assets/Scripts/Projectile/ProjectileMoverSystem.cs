@@ -8,13 +8,14 @@ using UnityEngine;
 public class ProjectileMoverSystem : JobComponentSystem
 {
 	[BurstCompile]
-	[RequireComponentTag(typeof(ProjectileMovingTag))]
+	[ExcludeComponent(typeof(ProjectileInPoolTag))]
 	struct ProjectileMoverJob : IJobForEach<ProjectileSpeed, Translation, Rotation>
 	{
 		public float DeltaTime;
 
 		public void Execute(ref ProjectileSpeed speed, ref Translation translation, ref Rotation rotation)
 		{
+            // move forwards using projectile speed
 			translation.Value += math.forward(rotation.Value) * speed.MetersPerSecond * DeltaTime;
 		}
 	}

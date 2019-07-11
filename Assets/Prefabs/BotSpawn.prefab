@@ -48,6 +48,7 @@ MonoBehaviour:
   Count: 20
   MinSpeed: 5
   MaxSpeed: 10
+  CollisionSize: 0.5
 --- !u!114 &5749096559521748585
 MonoBehaviour:
   m_ObjectHideFlags: 0

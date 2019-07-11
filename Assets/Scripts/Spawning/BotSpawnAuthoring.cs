@@ -10,9 +10,10 @@ public class BotSpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDec
     public int Count;
     public float MinSpeed;
     public float MaxSpeed;
+	public float CollisionSize;
 
-    // Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
-    public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
+	// Referenced prefabs have to be declared so that the conversion system knows about them ahead of time
+	public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
     {
         gameObjects.Add(Prefab);
     }
@@ -26,8 +27,9 @@ public class BotSpawnAuthoring : MonoBehaviour, IConvertGameObjectToEntity, IDec
             Prefab = conversionSystem.GetPrimaryEntity(Prefab),
             Count = Count,
             MinSpeed = MinSpeed,
-            MaxSpeed = MaxSpeed
-        };
+            MaxSpeed = MaxSpeed,
+			CollisionSize = CollisionSize
+		};
         dstManager.AddComponentData(entity, spawnerData);
     }
 }

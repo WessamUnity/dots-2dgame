@@ -57,6 +57,7 @@ public class BotSpawnSystem : ComponentSystem
             // Set correct bot location
             EntityManager.SetComponentData(instance, new Translation { Value = position });
             EntityManager.AddComponent(instance, typeof(BotTag));
+            EntityManager.AddComponentData(instance, new CollisionSize { Value = botSpawnFromEntity.CollisionSize });
             EntityManager.AddComponentData(instance, new BotSpeed{ Value = new float2(rand.NextFloat(botSpawnFromEntity.MinSpeed, botSpawnFromEntity.MaxSpeed), rand.NextFloat(botSpawnFromEntity.MinSpeed, botSpawnFromEntity.MaxSpeed)) });
         }
 
