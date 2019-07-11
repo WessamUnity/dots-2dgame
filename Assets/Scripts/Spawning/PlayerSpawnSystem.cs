@@ -50,10 +50,12 @@ public class PlayerSpawnSystem : ComponentSystem
 		float minY = -maxY;
 
         var position = new float3(rand.NextFloat(minX, maxX), 0, rand.NextFloat(minY, maxY));
-        // Create our new Bot entity
+        // Create our new player entity
         var instance = EntityManager.Instantiate(playerSpawn.Prefab);
-        // Set correct bot location
+        // Set correct player location
         EntityManager.SetComponentData(instance, new Translation { Value = position });
+        // Add player component tag
+        EntityManager.AddComponent(instance, typeof(PlayerTag));
 
         EntityManager.DestroyEntity(entity);
     }
