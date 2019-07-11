@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -7,7 +8,8 @@ using UnityEngine;
 
 public class BotMoverSystem : JobComponentSystem
 {
-    [RequireComponentTag(typeof(BotTag))]
+	[BurstCompile]
+	[RequireComponentTag(typeof(BotTag))]
     struct BotMoverJob : IJobForEach<BotSpeed, Translation>
     {
         public float DeltaTime;
