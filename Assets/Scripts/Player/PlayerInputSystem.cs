@@ -45,7 +45,6 @@ public class PlayerInputSystem : ComponentSystem
             var projectile = projectiles[0];
             // remove projectile from pool and mark as moving
             EntityManager.RemoveComponent<ProjectileInPoolTag>(projectile);
-            EntityManager.AddComponent(projectile, typeof(ProjectileMovingTag));
 
             // spawn at player location
             EntityManager.SetComponentData(projectile, playerTranslations[0]);
@@ -53,7 +52,7 @@ public class PlayerInputSystem : ComponentSystem
             // set the projectile heading correctly
             float3 playerLoc = playerTranslations[0].Value;
             float2 mouseDown = projections[0].LastPrimaryDown;
-            float3 playerToClick = new float3(mouseDown.x, Up.y, mouseDown.y) - playerLoc;
+            float3 playerToClick = new float3(mouseDown.x, playerLoc.y, mouseDown.y) - playerLoc;
             playerToClick = math.normalize(playerToClick);
             Rotation rotation = new Rotation();
             rotation.Value = quaternion.LookRotation(playerToClick, Up);
