@@ -59,4 +59,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 8172658862457831747, guid: b434fbd2c2b2ba146bf2aea9422f3ef6, type: 3}
   PoolCount: 100
-  Speed: 20
+  Speed: 10
