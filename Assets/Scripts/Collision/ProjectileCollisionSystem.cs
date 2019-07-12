@@ -11,16 +11,18 @@ public class ProjectileCollisionSystem : JobComponentSystem
     struct ProjectileCollisionJob : IJobForEachWithEntity<Translation, CollisionSize>
     {
         [DeallocateOnJobCompletion]
-        public NativeArray<Translation> ProjectileTranslations;
+        [ReadOnly]
+		public NativeArray<Translation> ProjectileTranslations;
 
         [DeallocateOnJobCompletion]
         [ReadOnly]
         public NativeArray<CollisionSize> ProjectileCollisions;
 
         [DeallocateOnJobCompletion]
-        public NativeArray<Entity> Projectiles;
+        [ReadOnly]
+		public NativeArray<Entity> Projectiles;
 
-        public EntityCommandBuffer.Concurrent ECB;
+		public EntityCommandBuffer.Concurrent ECB;
 
 		public float3 PoolLocation;
 
