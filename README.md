@@ -15,9 +15,10 @@ Starting with DOTS can sometimes be daunting. Hence, the following is one possib
 5. Capture input and use it to spawn projectiles on demand.
 
 ### Additional challenges
-1. Pool projectiles
-2. Respawn bots when dying
-3. Add scoring and UI
+- Pool projectiles
+- Respawn bots when dying
+- Add scoring and UI
 
 ### Resources
-You can use the Materials / Prefabs as a starting point to make your life easier.
+- You can use the Materials / Prefabs as a starting point to make your life easier
+- Refer to the DOTS basic and advanced samples for The Official Way™ to do things in DOTS
