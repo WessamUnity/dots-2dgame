@@ -1,4 +1,4 @@
-﻿using Unity.Burst;
+﻿using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -22,6 +22,8 @@ public class ProjectileCollisionSystem : JobComponentSystem
 
         public EntityCommandBuffer.Concurrent ECB;
 
+		public float3 PoolLocation;
+
         public void Execute(Entity entity, int jobIndex, ref Translation translation, ref CollisionSize collision)
         {
             float2 posA = new float2(translation.Value.x, translation.Value.z);
@@ -34,8 +36,14 @@ public class ProjectileCollisionSystem : JobComponentSystem
 
                 if (RectOverlap(posA, sizeA, posB, sizeB))
                 {
+					// destroy bot
                     ECB.DestroyEntity(jobIndex, entity);
+
+					// return projectile to pool
                     ECB.AddComponent(jobIndex, Projectiles[i], new ProjectileInPoolTag());
+					ECB.SetComponent(jobIndex, Projectiles[i], new Translation { Value = PoolLocation });
+
+					// only one collision is enough
                     return;
                 }
             }
@@ -57,8 +65,9 @@ public class ProjectileCollisionSystem : JobComponentSystem
     }
 
     EntityQuery m_projectilesQuery;
+	List<ProjectilePoolLocation> poolLocations;
 
-    BeginSimulationEntityCommandBufferSystem m_beginSimEcbSystem;
+	BeginSimulationEntityCommandBufferSystem m_beginSimEcbSystem;
 
     protected override void OnCreate()
     {
@@ -71,7 +80,9 @@ public class ProjectileCollisionSystem : JobComponentSystem
         );
 
         m_beginSimEcbSystem = World.GetOrCreateSystem<BeginSimulationEntityCommandBufferSystem>();
-    }
+
+		poolLocations = new List<ProjectilePoolLocation>();
+	}
 
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
@@ -79,15 +90,19 @@ public class ProjectileCollisionSystem : JobComponentSystem
         var projectileCollisions = m_projectilesQuery.ToComponentDataArray<CollisionSize>(Allocator.TempJob);
         var projectiles = m_projectilesQuery.ToEntityArray(Allocator.TempJob);
 
-        if (projectileCollisions.Length > 0)
+		poolLocations.Clear();
+		EntityManager.GetAllUniqueSharedComponentData<ProjectilePoolLocation>(poolLocations);
+
+        if (projectileCollisions.Length > 0 && poolLocations.Count > 1)
         {
             var job = new ProjectileCollisionJob
             {
                 ProjectileTranslations = projectileTranslations,
                 ProjectileCollisions = projectileCollisions,
                 Projectiles = projectiles,
-                ECB = m_beginSimEcbSystem.CreateCommandBuffer().ToConcurrent()
-            };
+                ECB = m_beginSimEcbSystem.CreateCommandBuffer().ToConcurrent(),
+				PoolLocation = poolLocations[1].Value
+			};
 
             inputDeps = job.Schedule(this, inputDeps);
             m_projectilesQuery.AddDependency(inputDeps);
