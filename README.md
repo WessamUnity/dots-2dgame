@@ -4,6 +4,8 @@
 ### Goal
 Create a 2D top-down game where you control the hero using mouse input. The hero can rotate around 360 degrees. The hero is trying to destroy enemies flying randomly across the screen by shooting projectiles towards them. When a projectile collides with an enemy, both the enemy and the projectile are destroyed.
 
+This repo contains one possible implementation for the proposed 2D game. Feel free to use it as a reference.
+
 
 ### Plan
 Starting with DOTS can sometimes be daunting. Hence, the following is one possible plan of how to approach the project. In no way is it the best or the only plan, just one of many possible.
