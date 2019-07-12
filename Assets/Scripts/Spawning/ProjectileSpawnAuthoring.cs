@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Unity.Entities;
 using System.Collections.Generic;
+using Unity.Mathematics;
 
 public class ProjectileSpawnAuthoring : MonoBehaviour, IDeclareReferencedPrefabs, IConvertGameObjectToEntity
 {
@@ -8,8 +9,9 @@ public class ProjectileSpawnAuthoring : MonoBehaviour, IDeclareReferencedPrefabs
 	public int PoolCount;
 	public float Speed;
     public float CollisionSize;
+	public float3 PoolLocation;
 
-    public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
+	public void DeclareReferencedPrefabs(List<GameObject> gameObjects)
 	{
 		gameObjects.Add(Prefab);
 	}
@@ -21,8 +23,9 @@ public class ProjectileSpawnAuthoring : MonoBehaviour, IDeclareReferencedPrefabs
 			Prefab = conversionSystem.GetPrimaryEntity(Prefab),
 			PoolCount = PoolCount,
 			Speed = Speed,
-            CollisionSize = CollisionSize
-        };
+            CollisionSize = CollisionSize,
+			PoolLocation = PoolLocation
+		};
 		dstManager.AddComponentData(entity, spawnData);
 	}
 }

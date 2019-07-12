@@ -61,3 +61,7 @@ MonoBehaviour:
   PoolCount: 100
   Speed: 10
   CollisionSize: 0.3
+  PoolLocation:
+    x: -10
+    y: -10
+    z: -10

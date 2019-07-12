@@ -1,5 +1,6 @@
 ﻿using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 
 public class ProjectileSpawnSystem : ComponentSystem
@@ -30,6 +31,8 @@ public class ProjectileSpawnSystem : ComponentSystem
 				EntityManager.AddComponentData(instance, new CollisionSize { Value = spawner.CollisionSize });
 				EntityManager.AddComponent(instance, typeof(ProjectileInPoolTag));
 				EntityManager.AddComponent(instance, typeof(ProjectileTag));
+				EntityManager.SetComponentData(instance, new Translation { Value = spawner.PoolLocation });
+				EntityManager.AddSharedComponentData(instance, new ProjectilePoolLocation { Value = spawner.PoolLocation });
 			}
 
 			EntityManager.DestroyEntity(entities[0]);
